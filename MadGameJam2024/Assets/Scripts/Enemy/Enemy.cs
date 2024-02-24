@@ -2,34 +2,44 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public abstract class Enemy : MonoBehaviour
 {
     private enum State
     {
         Wonder,
-        Attack
+        Attack,
+        Thrown
     }
 
-    [SerializeField] private float range;
-    [SerializeField] private float speed;
+    [SerializeField] protected float range;
+    [SerializeField] protected float speed;
 
-    private Vector3 playerPos;
+    protected Transform playerTransform;
+    protected Rigidbody2D rb2d;
 
     private State currState = State.Wonder;
 
-    private void Wonder()
-    {
+    protected abstract void Wonder();
 
+    protected abstract void Attack();
+
+    protected virtual void Throw()
+    {
+        currState = State.Thrown;
+        GetComponentInChildren<SpriteRenderer>().color = Color.red;
     }
 
-    private void Attack()
-    {
-        
-    }
+    protected abstract void Die();
 
-    private void Die()
-    {
+    protected virtual void WonderToAttack() { }
 
+    protected virtual void AttackToWonder() { }
+
+    private void Awake()
+    {
+        playerTransform = FindObjectOfType<PlayerMovement>().GetComponent<Transform>();
+        Debug.Log("Got playerTransform: " + playerTransform);
+        rb2d = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
@@ -37,18 +47,37 @@ public class Enemy : MonoBehaviour
         switch (currState)
         {
             case State.Wonder:
+                Wonder();
                 break;
             case State.Attack:
+                Attack();
                 break;
         }
 
-        if ((playerPos - transform.position).magnitude <= range)
+        if (Vector3.Distance(transform.position, playerTransform.position) <= range)
         {
-            currState = State.Attack;
+            if (currState == State.Wonder)
+            {
+                WonderToAttack();
+                currState = State.Attack;
+                Debug.Log("Changed enemy state to ATTACK");
+            }
         }
         else
         {
-            currState = State.Wonder;
+           if (currState == State.Attack)
+           {
+               AttackToWonder();
+               currState = State.Wonder;
+               Debug.Log("Changed enemy state to WONDER");
+           }
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }
