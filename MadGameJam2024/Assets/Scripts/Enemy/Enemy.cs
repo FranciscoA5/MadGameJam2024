@@ -13,9 +13,12 @@ public abstract class Enemy : MonoBehaviour
 
     [SerializeField] protected float range;
     [SerializeField] protected float speed;
+    [SerializeField] float Rotspeed;
 
     protected Transform playerTransform;
     protected Rigidbody2D rb2d;
+
+    Vector2 direction;
 
     private State currState = State.Wonder;
 
@@ -52,6 +55,10 @@ public abstract class Enemy : MonoBehaviour
             case State.Attack:
                 Attack();
                 break;
+            case State.Thrown:
+                Debug.Log("throwed");
+                Throwed(direction);
+                break;
         }
 
         if (Vector3.Distance(transform.position, playerTransform.position) <= range)
@@ -72,6 +79,32 @@ public abstract class Enemy : MonoBehaviour
                Debug.Log("Changed enemy state to WONDER");
            }
         }
+    }
+
+    private void Throwed(Vector2 direction)
+    {
+        if (currState == State.Thrown && direction != null)
+        {
+            transform.Translate(direction * Rotspeed * Time.deltaTime, Space.World);
+
+            //rb2d.velocity = direction * speed * Time.fixedDeltaTime;
+            Debug.DrawLine(transform.position, (Vector2)transform.position + direction);
+        }
+    }
+
+    public void HasBeenThrowed()
+    {
+        currState = State.Thrown;
+    }
+
+    public void Direction(Vector2 _direction)
+    {
+        direction = _direction;
+    }
+
+    public void Speed(float _speed)
+    {
+        Rotspeed = _speed;
     }
 
     void OnDrawGizmos()
