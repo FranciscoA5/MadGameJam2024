@@ -1041,7 +1041,7 @@ LineRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 1
-    textureScale: {x: 1.8, y: -0.2}
+    textureScale: {x: 4.15, y: -1.08}
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
@@ -1177,7 +1177,7 @@ LineRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 1
-    textureScale: {x: 1.8, y: -0.2}
+    textureScale: {x: 4.15, y: -1.08}
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
@@ -1710,7 +1710,7 @@ LineRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 1
-    textureScale: {x: 1.8, y: -0.2}
+    textureScale: {x: 4.15, y: -1.08}
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
@@ -1982,7 +1982,7 @@ LineRenderer:
     numCapVertices: 0
     alignment: 0
     textureMode: 1
-    textureScale: {x: 1.8, y: -0.2}
+    textureScale: {x: 4.15, y: -1.08}
     shadowBias: 0.5
     generateLightingData: 0
   m_MaskInteraction: 0
