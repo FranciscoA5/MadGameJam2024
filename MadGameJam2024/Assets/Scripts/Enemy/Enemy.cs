@@ -7,7 +7,8 @@ public abstract class Enemy : MonoBehaviour
     private enum State
     {
         Wonder,
-        Attack
+        Attack,
+        Thrown
     }
 
     [SerializeField] protected float range;
@@ -21,6 +22,12 @@ public abstract class Enemy : MonoBehaviour
     protected abstract void Wonder();
 
     protected abstract void Attack();
+
+    protected virtual void Throw()
+    {
+        currState = State.Thrown;
+        GetComponentInChildren<SpriteRenderer>().color = Color.red;
+    }
 
     protected abstract void Die();
 
