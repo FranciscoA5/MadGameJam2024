@@ -33,8 +33,7 @@ public class HookThrow : MonoBehaviour
         mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (Input.GetMouseButtonDown(0))
-        { 
-            rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        {     
             StartCoroutine(CastRay());
         }
 
@@ -63,7 +62,6 @@ public class HookThrow : MonoBehaviour
             isRotating = true;
             GetComponent<PlayerMovement>().ChangeSpeed(throwingSpeed);
         }
-       
     }
 
     IEnumerator CastRay()
@@ -75,8 +73,12 @@ public class HookThrow : MonoBehaviour
         // If it hits something...
         if (hit.collider != null && hit.collider.gameObject.CompareTag("Enemy"))
         {
-            isHooked = true;
             enemyHooked = hit.collider.gameObject;
+            if(Vector2.Distance(transform.position, enemyHooked.transform.position) > 2.5f)
+            {
+                isHooked = true;
+                rb.constraints = RigidbodyConstraints2D.FreezePosition;
+            }
             yield return new WaitForSeconds(grabingSpeed);
         }
         
