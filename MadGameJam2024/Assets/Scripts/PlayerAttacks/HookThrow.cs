@@ -81,8 +81,8 @@ public class HookThrow : MonoBehaviour
             }
             yield return new WaitForSeconds(grabingSpeed);
         }
-        
-        if(hit.collider ==  null)
+     
+        else
         {
             yield return new WaitForSeconds(grabingSpeed);
             rb.constraints = RigidbodyConstraints2D.None;

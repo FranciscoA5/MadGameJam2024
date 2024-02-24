@@ -6,26 +6,40 @@ using UnityEngine;
 public class SpawnCollectibles : MonoBehaviour
 {
     [SerializeField] private GameObject collectiblePrefab;
+    [SerializeField] private GameObject cavePrefab;
     [SerializeField] private GameObject map;
     private int collectiblesCount;
+    private int caveCount;
     [SerializeField] private int distanceCollectibles;
     private List<Vector3> collectiblesPos = new List<Vector3>();
-    void Start()
-    {
-       
-    }
+
+    [SerializeField] private int numberOfCollectibles;
+    [SerializeField] private int numberOfCaves;
+
 
     private void Update()
     {
-        if(collectiblesCount < 5 && SpawnObjectOutsideCamera())
+        if(collectiblesCount < numberOfCollectibles && SpawnObjectOutsideCamera(collectiblePrefab))
         {
             collectiblesCount++;
        
         }
+
+        if (caveCount < numberOfCaves && SpawnObjectOutsideCamera(cavePrefab))
+        {
+            caveCount++;
+
+        }
+
+        if (collectiblesCount == numberOfCollectibles && caveCount == numberOfCaves)
+        {
+            map.GetComponent<BoxCollider2D>().enabled = false;
+            
+        }
     }
 
     
-    private bool SpawnObjectOutsideCamera()
+    private bool SpawnObjectOutsideCamera(GameObject prefab)
     {
        
         Camera mainCamera = Camera.main;
@@ -61,7 +75,7 @@ public class SpawnCollectibles : MonoBehaviour
         }
         else
         {
-            Instantiate(collectiblePrefab, spawnPosition, Quaternion.identity);
+            Instantiate(prefab, spawnPosition, Quaternion.identity);
             collectiblesPos.Add(spawnPosition);
             return true;
         }
