@@ -42,19 +42,19 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D))
         {
-            rigidbody.MovePosition(rigidbody.position + (Vector2.up + Vector2.right) * speed * Time.deltaTime);
+            rigidbody.MovePosition(rigidbody.position + (Vector2.up + Vector2.right).normalized * speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A))
         {
-            rigidbody.MovePosition(rigidbody.position + (Vector2.up + Vector2.left) * speed * Time.deltaTime);
+            rigidbody.MovePosition(rigidbody.position + (Vector2.up + Vector2.left).normalized * speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A))
         {
-            rigidbody.MovePosition(rigidbody.position + (Vector2.down + Vector2.left) * speed * Time.deltaTime);
+            rigidbody.MovePosition(rigidbody.position + (Vector2.down + Vector2.left).normalized * speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
         {
-            rigidbody.MovePosition(rigidbody.position + (Vector2.down + Vector2.right) * speed * Time.deltaTime);
+            rigidbody.MovePosition(rigidbody.position + (Vector2.down + Vector2.right).normalized * speed * Time.deltaTime);
         }
     }
 }
