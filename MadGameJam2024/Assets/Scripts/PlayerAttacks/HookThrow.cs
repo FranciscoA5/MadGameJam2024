@@ -8,12 +8,21 @@ public class HookThrow : MonoBehaviour
 
     GameObject enemyHooked;
     Rigidbody2D rb;
+
+    private Vector2 mouseWorldPos;
+    private Vector2 velocityRotating;
+
     [SerializeField] private float hookDistance = 5;
     [SerializeField] private float pullingSpeed = 5;
-    [SerializeField] private float throwingSpeed = 2;
+    [SerializeField] private float grabingSpeed = 2;
+    [SerializeField] private int throwingSpeed = 5;
+    [SerializeField] private float rotationSpeed = 2;
+    [SerializeField] private float timer = 2;
+
     private bool isHooked = false;
     private bool isRotating = false;
-    private Vector2 mouseWorldPos;
+    private bool hasthrow = false;
+    
 
     private void Start()
     {
@@ -22,11 +31,9 @@ public class HookThrow : MonoBehaviour
     void Update()
     {
         mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        //mouseWorldPos.z = 0f; // zero z.
 
         if (Input.GetMouseButtonDown(0))
-        {
-            
+        { 
             rb.constraints = RigidbodyConstraints2D.FreezePosition;
             StartCoroutine(CastRay());
         }
@@ -38,10 +45,8 @@ public class HookThrow : MonoBehaviour
 
         if(isRotating == true)
         {
-            Rotate();
-        }
-    
-    
+            Rotate(enemyHooked);
+        } 
     }
 
     private void PullEnemy(GameObject enemy)
@@ -51,11 +56,12 @@ public class HookThrow : MonoBehaviour
             enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, transform.position, pullingSpeed * Time.deltaTime);
         }
         
-        else if(Vector2.Distance(transform.position, enemy.transform.position) < 2.5f)
+        else if(Vector2.Distance(transform.position, enemy.transform.position) < 2.5f && isHooked)
         {
-            //isHooked = false;
-            //rb.constraints = RigidbodyConstraints2D.None;
+            rb.constraints = RigidbodyConstraints2D.None;
+            enemy.transform.parent = transform;
             isRotating = true;
+            GetComponent<PlayerMovement>().ChangeSpeed(throwingSpeed);
         }
        
     }
@@ -71,23 +77,55 @@ public class HookThrow : MonoBehaviour
         {
             isHooked = true;
             enemyHooked = hit.collider.gameObject;
-            Debug.Log("ENEMY");
-            yield return new WaitForSeconds(throwingSpeed);
+            yield return new WaitForSeconds(grabingSpeed);
         }
-        
-        if(hit.collider ==  null)
+     
+        else
         {
-            yield return new WaitForSeconds(throwingSpeed);
+            yield return new WaitForSeconds(grabingSpeed);
             rb.constraints = RigidbodyConstraints2D.None;
         }
 
        
     }
-
-    private void Rotate()
+    
+    private void Rotate(GameObject enemy)
     {
 
+        enemy.transform.RotateAround(transform.position, Vector3.forward, rotationSpeed);
+        //rb.constraints = RigidbodyConstraints2D.FreezePosition;
+        TimerToSpeedUp();
+
+        if(Input.GetMouseButtonDown(0))
+        {
+            enemy.transform.parent = null;
+
+            Vector2 distanceRotating = transform.position - enemy.transform.position;
+            velocityRotating.x = distanceRotating.y;
+            velocityRotating.y = -distanceRotating.x;
+
+            rb.constraints = RigidbodyConstraints2D.None;
+
+            isRotating = false;
+            isHooked = false;
+            hasthrow = true;
+
+            enemy.GetComponent<Enemy>().HasBeenThrowed();
+            enemy.GetComponent<Enemy>().Speed(rotationSpeed * distanceRotating.magnitude);
+            enemy.GetComponent<Enemy>().Direction(velocityRotating);
+
+            GetComponent<PlayerMovement>().ChangeSpeed(10);
+            rotationSpeed = 2f;
+        }
     }
 
-
+    private void TimerToSpeedUp()
+    {
+        timer -= Time.deltaTime;
+        if (timer > 0.1f && rotationSpeed < 5)
+        {
+            rotationSpeed += 0.005f;
+        }
+        else timer = 2f;
+    }
 }

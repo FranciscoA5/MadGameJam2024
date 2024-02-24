@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     int speed = 10;
     Rigidbody2D rigidbody;
 
@@ -24,24 +23,20 @@ public class PlayerMovement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.A))
         {
-            Debug.Log("MovingLeft");
             rigidbody.MovePosition(rigidbody.position + Vector2.left * speed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.D))
         {
-            Debug.Log("MovingRight");
             rigidbody.MovePosition(rigidbody.position + Vector2.right * speed * Time.deltaTime);
         }
         if (Input.GetKey(KeyCode.W))
         {
-            Debug.Log("MovingUp");
             rigidbody.MovePosition(rigidbody.position + Vector2.up * speed * Time.deltaTime);
         }
 
         if (Input.GetKey(KeyCode.S))
         {
-            Debug.Log("MovingDown");
             rigidbody.MovePosition(rigidbody.position + Vector2.down * speed * Time.deltaTime);
         }
 
@@ -61,5 +56,10 @@ public class PlayerMovement : MonoBehaviour
         {
             rigidbody.MovePosition(rigidbody.position + (Vector2.down + Vector2.right).normalized * speed * Time.deltaTime);
         }
+    }
+
+    public void ChangeSpeed(int _speed)
+    {
+        speed = _speed;
     }
 }
