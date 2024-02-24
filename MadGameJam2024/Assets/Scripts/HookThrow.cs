@@ -7,17 +7,25 @@ public class HookThrow : MonoBehaviour
 {
 
     GameObject enemyHooked;
+    Rigidbody2D rb;
     [SerializeField] private float hookDistance = 5;
     [SerializeField] private float speed = 5;
     private bool isHooked = false;
-    private Vector3 mouseWorldPos;
+    private Vector2 mouseWorldPos;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+    }
     void Update()
     {
         mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mouseWorldPos.z = 0f; // zero z.
+        //mouseWorldPos.z = 0f; // zero z.
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
+            
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
             CastRay();
         }
 
@@ -39,16 +47,17 @@ public class HookThrow : MonoBehaviour
         else if(Vector2.Distance(transform.position, enemy.transform.position) < 2.5f)
         {
             isHooked = false;
+           // rb.constraints = RigidbodyConstraints2D.None;
         }
        
     }
 
     private void CastRay()
     {
+        Vector2 direction = mouseWorldPos - (Vector2)transform.position; // Calculate direction
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, hookDistance);
+        Debug.DrawRay(transform.position, direction.normalized * hookDistance, Color.red, 1f);
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, mouseWorldPos, hookDistance);
-        Debug.DrawRay(transform.position, mouseWorldPos * hookDistance, Color.red, 1f);
-       
         // If it hits something...
         if (hit.collider != null && hit.collider.gameObject.CompareTag("Enemy"))
         {
@@ -56,6 +65,11 @@ public class HookThrow : MonoBehaviour
             enemyHooked = hit.collider.gameObject;
             Debug.Log("ENEMY");
         }
+        else
+        {
+            rb.constraints = RigidbodyConstraints2D.None;
+        }
     }
+
 
 }
