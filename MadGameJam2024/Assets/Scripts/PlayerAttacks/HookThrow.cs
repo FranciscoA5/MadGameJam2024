@@ -11,6 +11,7 @@ public class HookThrow : MonoBehaviour
 
     private Vector2 mouseWorldPos;
     private Vector2 velocityRotating;
+    private Vector2 direction;
 
     [SerializeField] private float hookDistance = 5;
     [SerializeField] private float pullingSpeed = 5;
@@ -22,8 +23,6 @@ public class HookThrow : MonoBehaviour
     private bool isHooked = false;
     private bool isRotating = false;
     private bool hasthrow = false;
-    
-
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -66,9 +65,12 @@ public class HookThrow : MonoBehaviour
 
     IEnumerator CastRay()
     {
-        Vector2 direction = mouseWorldPos - (Vector2)transform.position; // Calculate direction
+        direction = mouseWorldPos - (Vector2)transform.position; // Calculate direction
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, hookDistance);
         Debug.DrawRay(transform.position, direction.normalized * hookDistance, Color.red, 1f);
+
+
+       
 
         // If it hits something...
         if (hit.collider != null && hit.collider.gameObject.CompareTag("Enemy"))
@@ -129,5 +131,11 @@ public class HookThrow : MonoBehaviour
             rotationSpeed += 0.005f;
         }
         else timer = 2f;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawRay(transform.position, direction.normalized * hookDistance);
     }
 }

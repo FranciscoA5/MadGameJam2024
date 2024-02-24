@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1144973943648321019}
   - component: {fileID: 2188058075495290312}
   - component: {fileID: 17322177142062132}
-  - component: {fileID: 6834208286152929073}
+  - component: {fileID: 4618656888761090406}
   m_Layer: 0
   m_Name: RegularSteve
   m_TagString: Enemy
@@ -77,7 +77,7 @@ MonoBehaviour:
   range: 5
   speed: 50
   Rotspeed: 0
---- !u!61 &6834208286152929073
+--- !u!61 &4618656888761090406
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 8991756202234196943}
   m_Layer: 0
   m_Name: Visual
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
