@@ -164,7 +164,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 198390340}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -239,7 +239,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -2.61}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -250,7 +250,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 4.27}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &334352974
 GameObject:
@@ -293,7 +293,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334352974}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -439,16 +439,21 @@ MonoBehaviour:
   - {fileID: 198390341}
   - {fileID: 334352975}
   line: {fileID: 728360370}
-  minDistX: 3
-  minDistY: 4
-  growDistY: 4
-  growDistX: 6
+  minDistX: 5
+  minDistY: 5
+  growDistY: 5
+  growDistX: 5
   timeSpan: 0.0001
-  speed: 4
+  speed: 1
+  speed2: 5
   Wall1: 0
   Wall2: 0
   Wall3: 0
   Wall4: 0
+  frozenWall1: 0
+  frozenWall2: 0
+  frozenWall3: 0
+  frozenWall4: 0
   allActive: 0
   ShrinkMode1: 0
   ativeCollider: 0
@@ -693,7 +698,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1169990877}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -959,7 +964,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1394732716}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1

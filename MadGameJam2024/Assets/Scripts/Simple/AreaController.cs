@@ -18,11 +18,15 @@ public class AreaController : MonoBehaviour
     [Space]
     [Header("Time from Shrinking")]
     [SerializeField] private float timeSpan;
-    [SerializeField] private float speed;
+    [SerializeField] private float speed, speed2;
     [Space]
     [Header("Individual Walls")]
     [SerializeField] bool Wall1;
     [SerializeField] bool Wall2, Wall3, Wall4;
+    [Space]
+    [Header("Individual Walls")]
+    [SerializeField] bool frozenWall1;
+    [SerializeField] bool frozenWall2, frozenWall3, frozenWall4;
     [Space]
     [Header("Shrink All wall at same time!")]
     [SerializeField] bool allActive;
@@ -32,6 +36,7 @@ public class AreaController : MonoBehaviour
 
     private float velY, velX;
     [SerializeField] private bool ativeCollider;
+    float offset = 0.25f;
 
     void Start()
     {
@@ -55,21 +60,30 @@ public class AreaController : MonoBehaviour
         //Limiting shrinking on X
         if (MinDistX() && allActive)
         {
-            points[0].position += points[0].right * Time.deltaTime * speed;
-            points[1].position += points[1].right * Time.deltaTime * speed;
-
-            points[2].position -= points[2].right * Time.deltaTime * speed;
-            points[3].position -= points[3].right * Time.deltaTime * speed;
+            if (!frozenWall1)
+            {
+                points[0].position += points[0].right * Time.deltaTime * speed;
+                points[1].position += points[1].right * Time.deltaTime * speed;
+            }
+            if (!frozenWall3)
+            {
+                points[2].position -= points[2].right * Time.deltaTime * speed;
+                points[3].position -= points[3].right * Time.deltaTime * speed;
+            }
         }
         //Limiting shrinking on Y
         if (MinDistY() && allActive)
         {
-            points[3].position -= points[3].up * Time.deltaTime * speed;
-            points[4].position -= points[4].up * Time.deltaTime * speed;
-
-
-            points[1].position += points[1].up * Time.deltaTime * speed;
-            points[2].position += points[2].up * Time.deltaTime * speed;
+            if (!frozenWall4)
+            {
+                points[3].position -= points[3].up * Time.deltaTime * speed;
+                points[4].position -= points[4].up * Time.deltaTime * speed;
+            }
+            if (!frozenWall2)
+            {
+                points[1].position += points[1].up * Time.deltaTime * speed;
+                points[2].position += points[2].up * Time.deltaTime * speed;
+            }
         }
         //update center of area
         UpdateCenter(speed);
@@ -83,11 +97,16 @@ public class AreaController : MonoBehaviour
             //Left Wall
             if (allActive)
             {
-                points[0].position += points[0].right * Time.deltaTime * velX;
-                points[1].position += points[1].right * Time.deltaTime * velX;
-            
-                points[2].position -= points[2].right * Time.deltaTime * velX;
-                points[3].position -= points[3].right * Time.deltaTime * velX;
+                if (!frozenWall1)
+                {
+                    points[0].position += points[0].right * Time.deltaTime * velX;
+                    points[1].position += points[1].right * Time.deltaTime * velX;
+                }
+                if (!frozenWall3)
+                {
+                    points[2].position -= points[2].right * Time.deltaTime * velX;
+                    points[3].position -= points[3].right * Time.deltaTime * velX;
+                }
                 //update center of area
                 UpdateCenter(velX);
             }
@@ -98,11 +117,16 @@ public class AreaController : MonoBehaviour
             //Up Wall
             if (allActive)
             {
-                points[3].position -= points[3].up * Time.deltaTime * velY;
-                points[4].position -= points[4].up * Time.deltaTime * velY;
-            
-                points[1].position += points[1].up * Time.deltaTime * velY;
-                points[2].position += points[2].up * Time.deltaTime * velY;
+                if (!frozenWall4)
+                {
+                    points[3].position -= points[3].up * Time.deltaTime * velY;
+                    points[0].position -= points[4].up * Time.deltaTime * velY;
+                }
+                if (!frozenWall2)
+                {
+                    points[1].position += points[1].up * Time.deltaTime * velY;
+                    points[2].position += points[2].up * Time.deltaTime * velY;
+                }
                 //update center of area
                 UpdateCenter(velY);
             }
@@ -141,8 +165,8 @@ public class AreaController : MonoBehaviour
             hasEnter1 = true;
             Vector3 pos1 = new Vector3(points[0].position.x - growDistX , points[0].position.y, 0);
             Vector3 pos2 = new Vector3(points[1].position.x - growDistX, points[1].position.y, 0);
-            points[0].position = pos1;
-            points[1].position = pos2;
+            points[0].position = Vector3.Lerp(points[0].position, pos1 , speed2);
+            points[1].position = Vector3.Lerp(points[1].position, pos2, speed2);
             ResetValues();
             Wall1 = false;
         }
@@ -152,8 +176,8 @@ public class AreaController : MonoBehaviour
             hasEnter2 = true;
             Vector3 pos1 = new Vector3(points[1].position.x, points[1].position.y - growDistY, 0);
             Vector3 pos2 = new Vector3(points[2].position.x, points[2].position.y - growDistY, 0);
-            points[1].position = pos1;
-            points[2].position = pos2;
+            points[1].position = Vector3.Lerp(points[1].position, pos1, speed2);
+            points[2].position = Vector3.Lerp(points[2].position, pos2, speed2);
             ResetValues();
             Wall2 = false;
         }
@@ -163,8 +187,8 @@ public class AreaController : MonoBehaviour
             hasEnter3 = true;
             Vector3 pos1 = new Vector3(points[2].position.x + growDistX, points[2].position.y, 0);
             Vector3 pos2 = new Vector3(points[3].position.x + growDistX, points[3].position.y, 0);
-            points[2].position = pos1;
-            points[3].position = pos2;
+            points[2].position = Vector3.Lerp(points[2].position, pos1, speed2);
+            points[3].position = Vector3.Lerp(points[3].position, pos2, speed2);
             ResetValues();
             Wall3 = false;
         }
@@ -174,8 +198,8 @@ public class AreaController : MonoBehaviour
             hasEnter4 = true;
             Vector3 pos1 = new Vector3(points[3].position.x, points[3].position.y + growDistY, 0);
             Vector3 pos2 = new Vector3(points[0].position.x, points[0].position.y + growDistY, 0);
-            points[3].position = pos1;
-            points[0].position = pos2;
+            points[3].position = Vector3.Lerp(points[3].position, pos1, speed2);
+            points[0].position = Vector3.Lerp(points[0].position, pos2, speed2);
             ResetValues();
             Wall4 = false;
         }
@@ -184,8 +208,8 @@ public class AreaController : MonoBehaviour
 
     private void UpdateCenter(float vel)
     {
-        float posY = (points[0].position.y + points[1].position.y + points[2].position.y + points[4].position.y) / 4;
-        float posX = (points[0].position.x + points[1].position.x + points[2].position.x + points[4].position.x) / 4;
+        float posY = (points[0].position.y + points[1].position.y + points[2].position.y + points[3].position.y) / 4;
+        float posX = (points[0].position.x + points[1].position.x + points[2].position.x + points[3].position.x) / 4;
 
         Vector3 newPos = new Vector3(posX, posY, Camera.main.transform.position.z);
         cam.transform.position = newPos;
@@ -201,17 +225,15 @@ public class AreaController : MonoBehaviour
         hasEnter4 = false;
     }
 
-    
-
     private void UpdateColliders()
     {
-        float offset = 1;
-
         float centerY = Vector2.Distance(points[0].position, points[1].position) / 2;
         float centerX = Vector2.Distance(points[0].position, points[3].position) / 2;
 
         float lenghtY = Vector2.Distance(points[0].position, points[1].position);
         float lenghtX = Vector2.Distance(points[0].position, points[3].position);
+
+        float width = line.GetComponent<LineRenderer>().startWidth;
         //wall1
 
         points[0].GetComponent<BoxCollider2D>().offset = new Vector2(0, -centerY);
@@ -220,10 +242,10 @@ public class AreaController : MonoBehaviour
         points[3].GetComponent<BoxCollider2D>().offset = new Vector2(-centerX, 0);
 
         //Update of collider scales
-        points[0].GetComponent<BoxCollider2D>().size = new Vector2(1, lenghtY - offset);
-        points[1].GetComponent<BoxCollider2D>().size = new Vector2(lenghtX - offset, 1);
-        points[2].GetComponent<BoxCollider2D>().size = new Vector2(1, lenghtY - offset);
-        points[3].GetComponent<BoxCollider2D>().size = new Vector2(lenghtX - offset, 1);
+        points[0].GetComponent<BoxCollider2D>().size = new Vector2(width, lenghtY - offset);
+        points[1].GetComponent<BoxCollider2D>().size = new Vector2(lenghtX - offset, width);
+        points[2].GetComponent<BoxCollider2D>().size = new Vector2(width, lenghtY - offset);
+        points[3].GetComponent<BoxCollider2D>().size = new Vector2(lenghtX - offset, width);
 
     }
 }
