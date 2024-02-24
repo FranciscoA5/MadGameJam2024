@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 33067630}
   - component: {fileID: 33067629}
   - component: {fileID: 33067631}
+  - component: {fileID: 33067632}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -237,7 +238,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -253,6 +254,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &33067632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 33067628}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ede6a47a3493024ab733d9fbb78d7e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &853800261
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,7 +312,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collectiblePrefab: {fileID: 5196308156112322251, guid: 567cd5f2e84ce254fab68aab0ca96dec, type: 3}
   map: {fileID: 1551829930}
-  numberCollectibles: 5
   distanceCollectibles: 10
 --- !u!1 &1456370434
 GameObject:
@@ -312,6 +324,7 @@ GameObject:
   - component: {fileID: 1456370437}
   - component: {fileID: 1456370436}
   - component: {fileID: 1456370435}
+  - component: {fileID: 1456370438}
   m_Layer: 0
   m_Name: Enemy (1)
   m_TagString: Enemy
@@ -348,7 +361,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -431,6 +444,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1456370438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456370434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ede6a47a3493024ab733d9fbb78d7e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1551829930
 GameObject:
   m_ObjectHideFlags: 0
@@ -825,8 +850,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hookDistance: 5
-  pullingSpeed: 3
-  throwingSpeed: 1
+  pullingSpeed: 5
+  throwingSpeed: 2
+  rotationSpeed: 2
+  timer: 2
 --- !u!114 &2056963223
 MonoBehaviour:
   m_ObjectHideFlags: 0

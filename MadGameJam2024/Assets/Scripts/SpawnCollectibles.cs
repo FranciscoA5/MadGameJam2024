@@ -10,10 +10,7 @@ public class SpawnCollectibles : MonoBehaviour
     private int collectiblesCount;
     [SerializeField] private int distanceCollectibles;
     private List<Vector3> collectiblesPos = new List<Vector3>();
-    void Start()
-    {
-       
-    }
+    
 
     private void Update()
     {
@@ -21,6 +18,12 @@ public class SpawnCollectibles : MonoBehaviour
         {
             collectiblesCount++;
        
+        }
+
+        if(collectiblesCount == 5)
+        {
+            map.GetComponent<BoxCollider2D>().enabled = false;
+            
         }
     }
 
