@@ -13,7 +13,7 @@ public abstract class Enemy : MonoBehaviour
 
     [SerializeField] protected float range;
     [SerializeField] protected float speed;
-    [SerializeField] float Rotspeed;
+    [SerializeField] protected float Rotspeed;
 
     protected Transform playerTransform;
     protected Rigidbody2D rb2d;
@@ -41,7 +41,6 @@ public abstract class Enemy : MonoBehaviour
     private void Awake()
     {
         playerTransform = FindObjectOfType<PlayerMovement>().GetComponent<Transform>();
-        Debug.Log("Got playerTransform: " + playerTransform);
         rb2d = GetComponent<Rigidbody2D>();
     }
 
