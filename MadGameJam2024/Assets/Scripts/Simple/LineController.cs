@@ -43,19 +43,20 @@ public class LineController : MonoBehaviour
             lineRenderer4.material = tex[0];
         }
 
-        SetValues();
+        if (controller.Deactive)
+        {
+            SetValues();
+        }
 
         //lineRenderer.material.SetTexture("SpikeWalls", tex[0]);
     }
 
-    async void SetValues()
+    void SetValues()
     {
-        await Task.Delay(controller.delaySpike);
-
-        if (hasEnter1) { lineRenderer1.material = tex[1]; hasEnter1 = false; }
-        if (hasEnter2) { lineRenderer2.material = tex[1]; hasEnter2 = false; }
-        if (hasEnter3) { lineRenderer3.material = tex[1]; hasEnter3 = false; }
-        if (hasEnter4) { lineRenderer4.material = tex[1]; hasEnter4 = false; }
+        lineRenderer1.material = tex[1]; hasEnter1 = false;
+        lineRenderer2.material = tex[1]; hasEnter2 = false;
+        lineRenderer3.material = tex[1]; hasEnter3 = false;
+        lineRenderer4.material = tex[1]; hasEnter4 = false;
     }
 
     public void SetUpLine(Transform[] points)

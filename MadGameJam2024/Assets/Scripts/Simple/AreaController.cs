@@ -33,6 +33,7 @@ public class AreaController : MonoBehaviour
     [Header("Texture Walls")]
     public bool texWall1;
     public bool texWall2, texWall3, texWall4;
+    public bool Deactive;
     [Space]
     [Header("Shrink All wall at same time!")]
     [SerializeField] bool allActive;
