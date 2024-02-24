@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerManager : MonoBehaviour
 {
     private int lifes = 3;
+    [SerializeField] private List<GameObject> heartsList = new List<GameObject>();
+    [SerializeField] private GameObject gameOverText;
     void Start()
     {
         
@@ -13,7 +15,10 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(lifes == 0)
+        {
+            gameOverText.SetActive(true);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -22,6 +27,7 @@ public class PlayerManager : MonoBehaviour
         {
             Debug.Log("Menos UMA VIDA");
             lifes--;
+            heartsList[lifes].SetActive(false);
         }
     }
 }
