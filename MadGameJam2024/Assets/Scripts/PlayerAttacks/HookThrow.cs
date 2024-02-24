@@ -14,7 +14,8 @@ public class HookThrow : MonoBehaviour
 
     [SerializeField] private float hookDistance = 5;
     [SerializeField] private float pullingSpeed = 5;
-    [SerializeField] private float throwingSpeed = 2;
+    [SerializeField] private float grabingSpeed = 2;
+    [SerializeField] private int throwingSpeed = 5;
     [SerializeField] private float rotationSpeed = 2;
     [SerializeField] private float timer = 2;
 
@@ -60,6 +61,7 @@ public class HookThrow : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.None;
             enemy.transform.parent = transform;
             isRotating = true;
+            GetComponent<PlayerMovement>().ChangeSpeed(throwingSpeed);
         }
        
     }
@@ -75,28 +77,18 @@ public class HookThrow : MonoBehaviour
         {
             isHooked = true;
             enemyHooked = hit.collider.gameObject;
-            Debug.Log("ENEMY");
-            yield return new WaitForSeconds(throwingSpeed);
+            yield return new WaitForSeconds(grabingSpeed);
         }
         
         if(hit.collider ==  null)
         {
-            yield return new WaitForSeconds(throwingSpeed);
+            yield return new WaitForSeconds(grabingSpeed);
             rb.constraints = RigidbodyConstraints2D.None;
         }
 
        
     }
-
-    //private void TryToRotate() {
-    //    if (Input.GetMouseButton(0))
-    //    {
-    //        isRotating = true;
-    //    }
-    //    else isHooked = false;
-    //}
     
-
     private void Rotate(GameObject enemy)
     {
 
@@ -118,10 +110,11 @@ public class HookThrow : MonoBehaviour
             isHooked = false;
             hasthrow = true;
 
-            enemy.GetComponent<EnemyThrowed>().HasBeenThrowed(hasthrow);
-            enemy.GetComponent<EnemyThrowed>().Speed(rotationSpeed * distanceRotating.magnitude);
-            enemy.GetComponent<EnemyThrowed>().Direction(velocityRotating);
+            enemy.GetComponent<Enemy>().HasBeenThrowed();
+            enemy.GetComponent<Enemy>().Speed(rotationSpeed * distanceRotating.magnitude);
+            enemy.GetComponent<Enemy>().Direction(velocityRotating);
 
+            GetComponent<PlayerMovement>().ChangeSpeed(10);
             rotationSpeed = 2f;
         }
     }

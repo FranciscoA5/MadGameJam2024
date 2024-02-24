@@ -57,4 +57,9 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.MovePosition(rigidbody.position + (Vector2.down + Vector2.right).normalized * speed * Time.deltaTime);
         }
     }
+
+    public void ChangeSpeed(int _speed)
+    {
+        speed = _speed;
+    }
 }
