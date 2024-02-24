@@ -7,7 +7,9 @@ public class AreaController : MonoBehaviour
 {
     [SerializeField] private Camera cam;
     [SerializeField] private Transform[] points; //<<<------ Objects with colliders
-    [SerializeField] private LineController line;
+    [SerializeField] private LineController[] line;
+    [SerializeField] private LineRenderer[] lines;
+    [SerializeField] private Texture[] tex;
     bool hasEnter1, hasEnter2, hasEnter3, hasEnter4;
     [Space]
     [Header("Box Limits")]
@@ -24,9 +26,14 @@ public class AreaController : MonoBehaviour
     [SerializeField] bool Wall1;
     [SerializeField] bool Wall2, Wall3, Wall4;
     [Space]
-    [Header("Individual Walls")]
+    [Header("Frozen Walls")]
     [SerializeField] bool frozenWall1;
     [SerializeField] bool frozenWall2, frozenWall3, frozenWall4;
+    [Space]
+    [Header("Texture Walls")]
+    public bool texWall1;
+    public bool texWall2, texWall3, texWall4;
+    public bool Deactive;
     [Space]
     [Header("Shrink All wall at same time!")]
     [SerializeField] bool allActive;
@@ -37,10 +44,14 @@ public class AreaController : MonoBehaviour
     private float velY, velX;
     [SerializeField] private bool ativeCollider;
     float offset = 0.25f;
+    public int delaySpike = 1;
 
     void Start()
     {
-        line.SetUpLine(points);
+        for (int i = 0; i < line.Length; i++)
+        {
+            line[i].SetUpLine(points);
+        }
     }
 
     private void Update()
@@ -53,6 +64,8 @@ public class AreaController : MonoBehaviour
         UpdateCenter(speed);
 
         UpdateColliders();
+
+        SetTextureSpikes();
     }
 
     public void ShrinkAreaMethod2()
@@ -233,7 +246,7 @@ public class AreaController : MonoBehaviour
         float lenghtY = Vector2.Distance(points[0].position, points[1].position);
         float lenghtX = Vector2.Distance(points[0].position, points[3].position);
 
-        float width = line.GetComponent<LineRenderer>().startWidth;
+        float width = line[0].GetComponent<LineRenderer>().startWidth;
         //wall1
 
         points[0].GetComponent<BoxCollider2D>().offset = new Vector2(0, -centerY);
@@ -247,5 +260,32 @@ public class AreaController : MonoBehaviour
         points[2].GetComponent<BoxCollider2D>().size = new Vector2(width, lenghtY - offset);
         points[3].GetComponent<BoxCollider2D>().size = new Vector2(lenghtX - offset, width);
 
+    }
+
+    private void SetTextureSpikes()
+    {
+        if (texWall1)
+        {
+            lines[0].material.SetTexture("SpikeWall", tex[0]);
+        }
+        else if (texWall2)
+        {
+            lines[1].material.SetTexture("SpikeWall", tex[0]);
+        }
+        else if (texWall3)
+        {
+            lines[2].material.SetTexture("SpikeWall", tex[0]);
+        }
+        else if (texWall4)
+        {
+            lines[3].material.SetTexture("SpikeWall", tex[0]);
+        }
+        else
+        {
+            for (int i = 0; i < lines.Length; i++)
+            {
+                lines[i].material.SetTexture("SpikeWall", tex[1]);
+            }
+        }
     }
 }
