@@ -9,8 +9,10 @@ public class HookThrow : MonoBehaviour
     GameObject enemyHooked;
     Rigidbody2D rb;
     [SerializeField] private float hookDistance = 5;
-    [SerializeField] private float speed = 5;
+    [SerializeField] private float pullingSpeed = 5;
+    [SerializeField] private float throwingSpeed = 2;
     private bool isHooked = false;
+    private bool isRotating = false;
     private Vector2 mouseWorldPos;
 
     private void Start()
@@ -26,12 +28,17 @@ public class HookThrow : MonoBehaviour
         {
             
             rb.constraints = RigidbodyConstraints2D.FreezePosition;
-            CastRay();
+            StartCoroutine(CastRay());
         }
 
         if(enemyHooked != null)
         {
             PullEnemy(enemyHooked);
+        }
+
+        if(isRotating == true)
+        {
+            Rotate();
         }
     
     
@@ -41,18 +48,19 @@ public class HookThrow : MonoBehaviour
     {
         if (isHooked && Vector2.Distance(transform.position, enemy.transform.position) > 2.5f)
         {
-            enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, transform.position, speed * Time.deltaTime);
+            enemy.transform.position = Vector2.MoveTowards(enemy.transform.position, transform.position, pullingSpeed * Time.deltaTime);
         }
         
         else if(Vector2.Distance(transform.position, enemy.transform.position) < 2.5f)
         {
-            isHooked = false;
-           // rb.constraints = RigidbodyConstraints2D.None;
+            //isHooked = false;
+            //rb.constraints = RigidbodyConstraints2D.None;
+            isRotating = true;
         }
        
     }
 
-    private void CastRay()
+    IEnumerator CastRay()
     {
         Vector2 direction = mouseWorldPos - (Vector2)transform.position; // Calculate direction
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, hookDistance);
@@ -64,11 +72,21 @@ public class HookThrow : MonoBehaviour
             isHooked = true;
             enemyHooked = hit.collider.gameObject;
             Debug.Log("ENEMY");
+            yield return new WaitForSeconds(throwingSpeed);
         }
-        else
+        
+        if(hit.collider ==  null)
         {
+            yield return new WaitForSeconds(throwingSpeed);
             rb.constraints = RigidbodyConstraints2D.None;
         }
+
+       
+    }
+
+    private void Rotate()
+    {
+
     }
 
 
