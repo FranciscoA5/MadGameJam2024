@@ -102,6 +102,7 @@ MonoBehaviour:
   range: 1.75
   speed: 100
   Rotspeed: 0
+  id: 1
   timeToDestroy: 5
   spike: {fileID: 8093872957982784571, guid: 95458df7c6f282e42a05dfc2f8a6ac0b, type: 3}
 --- !u!61 &9209248696382364171

@@ -26,7 +26,7 @@ public class HookLaunch : MonoBehaviour
         switch (currState)
         {
             case HookState.Put:
-                if (Input.GetMouseButtonDown(0) && !isRotating )
+                if (Input.GetMouseButton(0) && !isRotating )
                 {
                     GetComponent<Rigidbody2D>().constraints = RigidbodyConstraints2D.FreezePosition;
                     Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

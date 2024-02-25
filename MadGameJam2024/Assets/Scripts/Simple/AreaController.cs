@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class AreaController : MonoBehaviour
 {
+
+    public static AreaController Instance;
+
     [SerializeField] private Camera cam;
     [SerializeField] private Transform[] points; //<<<------ Objects with colliders
     //[SerializeField] private LineController[] line;
@@ -23,8 +26,8 @@ public class AreaController : MonoBehaviour
     [SerializeField] private float speed, speed2;
     [Space]
     [Header("Individual Walls")]
-    [SerializeField] bool Wall1;
-    [SerializeField] bool Wall2, Wall3, Wall4;
+    public bool Wall1;
+    public bool Wall2, Wall3, Wall4;
     [Space]
     [Header("Frozen Walls")]
     public bool frozenWall1;
@@ -49,13 +52,10 @@ public class AreaController : MonoBehaviour
     float offset = 0.25f;
     public int delaySpike = 1;
 
-    //void Start()
-    //{
-    //    for (int i = 0; i < line.Length; i++)
-    //    {
-    //        line[i].SetUpLine(points);
-    //    }
-    //}
+    void Start()
+    {
+        Instance = this;
+    }
 
     private void Update()
     {
@@ -64,7 +64,7 @@ public class AreaController : MonoBehaviour
 
         UpdateLineNewPos();
         //Colocar no player
-        UpdateCenter(speed);
+        //UpdateCenter(speed);
 
         UpdateColliders();
 
@@ -103,7 +103,7 @@ public class AreaController : MonoBehaviour
             }
         }
         //update center of area
-        UpdateCenter(speed);
+        //UpdateCenter(speed);
     }
 
     public void ShrinkArea()
@@ -125,7 +125,7 @@ public class AreaController : MonoBehaviour
                     points[3].position -= points[3].right * Time.deltaTime * velX;
                 }
                 //update center of area
-                UpdateCenter(velX);
+                //UpdateCenter(velX);
             }
         }
         //Limiting shrinking on Y
@@ -145,7 +145,7 @@ public class AreaController : MonoBehaviour
                     points[2].position += points[2].up * Time.deltaTime * velY;
                 }
                 //update center of area
-                UpdateCenter(velY);
+                //UpdateCenter(velY);
             }
         }
         //Update moving velocity on Y or X
@@ -221,6 +221,15 @@ public class AreaController : MonoBehaviour
             Wall4 = false;
         }
 
+    }
+
+    public Vector2 CenterPos()
+    {
+        float posY = (points[0].position.y + points[1].position.y + points[2].position.y + points[3].position.y) / 4;
+        float posX = (points[0].position.x + points[1].position.x + points[2].position.x + points[3].position.x) / 4;
+
+        Vector2 Pos = new Vector2(posX, posY);
+        return Pos;
     }
 
     private void UpdateCenter(float vel)
