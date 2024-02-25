@@ -22,9 +22,19 @@ public class CacoDeVidro : Enemy
 
     private void Update()
     {
+        base.Update();
+
         if (isAttacking)
         {
             timeToDestroy -= Time.deltaTime;
+            if (timeToDestroy < 0.1f)
+            {
+                Debug.Log("Destroyed");
+                DestroySpikesAndSpots();
+                timeToDestroy = 5f;
+                rb2d.constraints = RigidbodyConstraints2D.None;
+                isAttacking = false;
+            }
         }
     }
 
@@ -32,15 +42,6 @@ public class CacoDeVidro : Enemy
     {
         StartAttack();
         isAttacking = true;
-
-        if (timeToDestroy < 0.1f)
-        {
-            Debug.Log("Destroyed");
-            Destroy();
-            timeToDestroy = 5f;
-            rb2d.constraints = RigidbodyConstraints2D.None;
-            isAttacking = false;
-        }
     }
 
     protected override void Die()
@@ -98,19 +99,19 @@ public class CacoDeVidro : Enemy
         }
     }
 
-    private void Destroy()
+    private void DestroySpikesAndSpots()
     {
-        bool stillWorking = false;
-        do
+        foreach(GameObject spike in spikeList)
         {
-            stillWorking = false;
-            for (int i = 0; i < spikeList.Count; i++)
-            {
-                spikeList.Remove(spike);
-                Destroy(spike);
-                stillWorking = true;
-                break;
-            }
-        } while (stillWorking);
+            spikeList.Remove(spike);
+            Destroy(spike);
+        }
+
+        foreach (Vector3 spot in spikeSpots)
+        {
+            spikeSpots.Remove(spot);
+        }
+        //spikeList.RemoveAll(spike => spike == null);
+        Debug.Log("spikeList: " + spikeList.Count);
     }
 }

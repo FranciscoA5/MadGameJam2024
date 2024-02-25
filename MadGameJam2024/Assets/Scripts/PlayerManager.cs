@@ -18,7 +18,13 @@ public class PlayerManager : MonoBehaviour
         if(lifes == 0)
         {
             gameOverText.SetActive(true);
+            Time.timeScale = 0;//TODO: butoes para retry ou main menu
         }
+    }
+
+    public void TakeDamage()
+    {
+        lifes--;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

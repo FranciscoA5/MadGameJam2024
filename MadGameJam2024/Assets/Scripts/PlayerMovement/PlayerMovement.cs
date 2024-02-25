@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    int speed = 10;
+    int speed = 3;
     Rigidbody2D rigidbody;
+    [SerializeField] Camera camera;
+    [SerializeField] PlayerManager playerManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        rigidbody = gameObject.GetComponent<Rigidbody2D>();        
+        rigidbody = gameObject.GetComponent<Rigidbody2D>();   
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         Movement();
+    }
+    private void Update()
+    {
+        Vector3 newPos = new Vector3(transform.position.x, transform.position.y, Camera.main.transform.position.z);
+        camera.transform.position = Vector3.Lerp(camera.transform.position, newPos, 1f);
     }
 
     private void Movement()
@@ -61,5 +68,33 @@ public class PlayerMovement : MonoBehaviour
     public void ChangeSpeed(int _speed)
     {
         speed = _speed;
+    }
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Triggered");
+        if (collision.gameObject.tag == "Wall1")
+        {
+            transform.position = Vector2.Lerp(transform.position, AreaController.Instance.CenterPos(), 2f);
+            playerManager.TakeDamage();
+        }
+
+        if (collision.gameObject.tag == "Wall2")
+        {
+            transform.position = Vector2.Lerp(transform.position, AreaController.Instance.CenterPos(), 2f);
+            playerManager.TakeDamage();
+        }
+
+        if (collision.gameObject.tag == "Wall3")
+        {
+            transform.position = Vector2.Lerp(transform.position, AreaController.Instance.CenterPos(), 2f);
+            playerManager.TakeDamage();
+        }
+
+        if (collision.gameObject.tag == "Wall4")
+        {
+            transform.position = Vector2.Lerp(transform.position, AreaController.Instance.CenterPos(), 2f);
+            playerManager.TakeDamage();
+        }
     }
 }

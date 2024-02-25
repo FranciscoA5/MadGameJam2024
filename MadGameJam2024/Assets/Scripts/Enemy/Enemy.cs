@@ -8,12 +8,15 @@ public abstract class Enemy : MonoBehaviour
     {
         Wonder,
         Attack,
+        Rotating, 
         Thrown
     }
 
     [SerializeField] protected float range;
     [SerializeField] protected float speed;
     [SerializeField] protected float Rotspeed;
+    [SerializeField] private int id = 0;
+    
 
     protected Transform playerTransform;
     protected Rigidbody2D rb2d;
@@ -44,8 +47,9 @@ public abstract class Enemy : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    public void Update()
     {
+
         switch (currState)
         {
             case State.Wonder:
@@ -53,6 +57,8 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case State.Attack:
                 Attack();
+                break;
+            case State.Rotating:
                 break;
             case State.Thrown:
                 Debug.Log("throwed");
@@ -80,6 +86,41 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(currState == State.Thrown)
+        {
+            if (collision.gameObject.tag == "Wall1")
+            {
+                AreaController.Instance.Wall1 = true;
+                if(id == 1) AreaController.Instance.texWall1 = true;
+                Destroy(this.gameObject);
+            }
+
+            if (collision.gameObject.tag == "Wall2")
+            {
+                AreaController.Instance.Wall2 = true;
+                if (id == 1) AreaController.Instance.texWall2 = true;
+                Destroy(this.gameObject);
+            }
+
+            if (collision.gameObject.tag == "Wall3")
+            {
+                AreaController.Instance.Wall3 = true;
+                if (id == 1) AreaController.Instance.texWall3 = true;
+                Destroy(this.gameObject);
+            }
+
+            if (collision.gameObject.tag == "Wall4")
+            {
+                AreaController.Instance.Wall4 = true;
+                if (id == 1) AreaController.Instance.texWall4 = true;
+                Destroy(this.gameObject);
+            }
+        }
+        
+    }
+
     private void Throwed(Vector2 direction)
     {
         if (currState == State.Thrown && direction != null)
@@ -102,6 +143,11 @@ public abstract class Enemy : MonoBehaviour
     public void Speed(float _speed)
     {
         Rotspeed = _speed;
+    }
+
+    public void IsRotating()
+    {
+        currState = State.Rotating;
     }
 
     void OnDrawGizmos()
