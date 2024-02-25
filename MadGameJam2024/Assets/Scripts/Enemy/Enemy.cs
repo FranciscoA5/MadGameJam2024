@@ -13,7 +13,7 @@ public abstract class Enemy : MonoBehaviour
 
     [SerializeField] protected float range;
     [SerializeField] protected float speed;
-    [SerializeField] float Rotspeed;
+    [SerializeField] protected float Rotspeed;
 
     protected Transform playerTransform;
     protected Rigidbody2D rb2d;
@@ -41,7 +41,6 @@ public abstract class Enemy : MonoBehaviour
     private void Awake()
     {
         playerTransform = FindObjectOfType<PlayerMovement>().GetComponent<Transform>();
-        Debug.Log("Got playerTransform: " + playerTransform);
         rb2d = GetComponent<Rigidbody2D>();
     }
 
@@ -86,8 +85,6 @@ public abstract class Enemy : MonoBehaviour
         if (currState == State.Thrown && direction != null)
         {
             transform.Translate(direction * Rotspeed * Time.deltaTime, Space.World);
-
-            //rb2d.velocity = direction * speed * Time.fixedDeltaTime;
             Debug.DrawLine(transform.position, (Vector2)transform.position + direction);
         }
     }
