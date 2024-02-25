@@ -85,8 +85,6 @@ public abstract class Enemy : MonoBehaviour
         if (currState == State.Thrown && direction != null)
         {
             transform.Translate(direction * Rotspeed * Time.deltaTime, Space.World);
-
-            //rb2d.velocity = direction * speed * Time.fixedDeltaTime;
             Debug.DrawLine(transform.position, (Vector2)transform.position + direction);
         }
     }

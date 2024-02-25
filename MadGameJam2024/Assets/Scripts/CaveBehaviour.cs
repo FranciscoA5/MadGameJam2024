@@ -4,15 +4,32 @@ using UnityEngine;
 
 public class CaveBehaviour : MonoBehaviour
 {
-    // Start is called before the first frame update
+    [SerializeField] private List<GameObject> enemyList;
+     private int enemyCount ;
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(enemyCount < 10)
+        {
+            SpawnEnemies();
+           
+
+        }
     }
+
+    private void SpawnEnemies()
+    {
+        int randomIndex = Random.Range(0, enemyList.Count);
+       
+        Instantiate(enemyList[randomIndex], transform.position, Quaternion.identity);
+        enemyCount++;
+
+
+    }
+ 
 }
