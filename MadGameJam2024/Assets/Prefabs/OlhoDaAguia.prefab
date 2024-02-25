@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3949441530046421608}
   - component: {fileID: 5585895238299939135}
+  - component: {fileID: 7091722307680020725}
   m_Layer: 0
   m_Name: Visual
   m_TagString: Untagged
@@ -84,6 +85,27 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7091722307680020725
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1809014137306589432}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 411621d8e917b814fb190aad3cb07278, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2605458883800581169
 GameObject:
   m_ObjectHideFlags: 0
@@ -160,5 +182,7 @@ MonoBehaviour:
   range: 8
   speed: 150
   Rotspeed: 0
+  projetilPrefab: {fileID: 2459984984639496765, guid: 62ea3205d5618fd409395dec46c2ee08, type: 3}
+  animator: {fileID: 7091722307680020725}
   shootingRange: 5
   shootInterval: 1.5
