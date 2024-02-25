@@ -259,7 +259,7 @@ public class AreaController : MonoBehaviour
         float lenghtY = Vector2.Distance(points[0].position, points[1].position);
         float lenghtX = Vector2.Distance(points[0].position, points[3].position);
 
-        float width = lines[0].GetComponent<LineRenderer>().startWidth;
+        float width = lines[0].GetComponent<LineRenderer>().startWidth / 2;
         //wall1
 
         points[0].GetComponent<BoxCollider2D>().offset = new Vector2(0, -centerY);

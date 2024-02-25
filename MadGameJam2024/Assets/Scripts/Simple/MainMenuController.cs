@@ -15,9 +15,9 @@ public class MainMenuController : MonoBehaviour
         slider.value = 1;
     }
 
-    public void SetGameScene()
+    public void SetGameScene(int id)
     {
-        SceneManager.LoadScene(1); //<--- Game Scene
+        SceneManager.LoadScene(id); //<--- Game Scene
     }
 
     public void ExitGame()
