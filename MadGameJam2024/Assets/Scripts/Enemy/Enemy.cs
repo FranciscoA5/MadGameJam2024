@@ -8,12 +8,14 @@ public abstract class Enemy : MonoBehaviour
     {
         Wonder,
         Attack,
+        Rotating, 
         Thrown
     }
 
     [SerializeField] protected float range;
     [SerializeField] protected float speed;
     [SerializeField] protected float Rotspeed;
+    
 
     protected Transform playerTransform;
     protected Rigidbody2D rb2d;
@@ -44,8 +46,9 @@ public abstract class Enemy : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    public void Update()
     {
+
         switch (currState)
         {
             case State.Wonder:
@@ -53,6 +56,8 @@ public abstract class Enemy : MonoBehaviour
                 break;
             case State.Attack:
                 Attack();
+                break;
+            case State.Rotating:
                 break;
             case State.Thrown:
                 Debug.Log("throwed");
@@ -80,13 +85,19 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Wall" && currState == State.Thrown)
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
     private void Throwed(Vector2 direction)
     {
         if (currState == State.Thrown && direction != null)
         {
             transform.Translate(direction * Rotspeed * Time.deltaTime, Space.World);
-
-            //rb2d.velocity = direction * speed * Time.fixedDeltaTime;
             Debug.DrawLine(transform.position, (Vector2)transform.position + direction);
         }
     }
@@ -104,6 +115,11 @@ public abstract class Enemy : MonoBehaviour
     public void Speed(float _speed)
     {
         Rotspeed = _speed;
+    }
+
+    public void IsRotating()
+    {
+        currState = State.Rotating;
     }
 
     void OnDrawGizmos()

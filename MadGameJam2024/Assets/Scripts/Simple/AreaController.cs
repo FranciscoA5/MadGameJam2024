@@ -63,13 +63,14 @@ public class AreaController : MonoBehaviour
         else ShrinkAreaMethod2();
 
         UpdateLineNewPos();
-
+        //Colocar no player
         UpdateCenter(speed);
 
         UpdateColliders();
 
         SetTextureSpikes();
     }
+
 
     public void ShrinkAreaMethod2()
     {
