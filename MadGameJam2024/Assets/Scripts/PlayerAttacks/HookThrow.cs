@@ -59,6 +59,7 @@ public class HookThrow : MonoBehaviour
             rb.constraints = RigidbodyConstraints2D.None;
             enemy.transform.parent = transform;
             isRotating = true;
+            enemy.GetComponent<Enemy>().IsRotating();
             GetComponent<PlayerMovement>().ChangeSpeed(throwingSpeed);
         }
     }
@@ -69,16 +70,18 @@ public class HookThrow : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, hookDistance);
         Debug.DrawRay(transform.position, direction.normalized * hookDistance, Color.red, 1f);
 
-
+        Debug.Log("hit: " + hit);
        
 
         // If it hits something...
         if (hit.collider != null && hit.collider.gameObject.CompareTag("Enemy"))
         {
             enemyHooked = hit.collider.gameObject;
-            if(Vector2.Distance(transform.position, enemyHooked.transform.position) > 2.5f)
+            Debug.Log("hit collider: " + hit.collider.gameObject);
+            if (Vector2.Distance(transform.position, enemyHooked.transform.position) > 2.5f)
             {
                 isHooked = true;
+                Debug.Log("ishooked: " + isHooked);
                 rb.constraints = RigidbodyConstraints2D.FreezePosition;
             }
             yield return new WaitForSeconds(grabingSpeed);
