@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class OlhoDaAguia : Enemy
 {
+    [SerializeField] private GameObject projetilPrefab;
+    [SerializeField] private Animator animator;
+
     private Vector3 targetPos;
     [SerializeField] private float shootingRange;
     private const float sRangeWindow = 0.2f;
@@ -17,21 +20,26 @@ public class OlhoDaAguia : Enemy
 
         if (playerDist > shootingRange + sRangeWindow)
         {
+            animator.SetBool("isWalking", true);
             Vector3 direction = (playerTransform.position - transform.position).normalized;
             rb2d.velocity = direction * speed * Time.fixedDeltaTime;
         }
         else if (playerDist < shootingRange - sRangeWindow)
         {
+            animator.SetBool("isWalking", true);
             Vector3 direction = (transform.position - playerTransform.position).normalized;
             rb2d.velocity = direction * speed * Time.fixedDeltaTime;
         }
         else
         {
+            animator.SetBool("isWalking", false);
             rb2d.velocity = Vector3.zero;
             shootingTimer += Time.deltaTime;
             if (shootingTimer >= shootInterval)
             {
-                Debug.Log("Shoot!");
+                GameObject projetil = Instantiate(projetilPrefab, transform.position, Quaternion.identity);
+                projetil.GetComponent<Projetil>().StartPrefab((playerTransform.position - transform.position).normalized);
+
                 shootingTimer = 0;
             }
         }
@@ -51,6 +59,11 @@ public class OlhoDaAguia : Enemy
         {
             targetPos = GetRandomPointInRange();
         }
+    }
+
+    protected override void AttackToWonder()
+    {
+        animator.SetBool("isWalking", true);
     }
 
     private Vector3 GetRandomPointInRange()
