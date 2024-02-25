@@ -11,7 +11,6 @@ public class HookThrow : MonoBehaviour
 
     private Vector2 mouseWorldPos;
     private Vector2 velocityRotating;
-    private Vector2 direction;
 
     [SerializeField] private float hookDistance = 5;
     [SerializeField] private float pullingSpeed = 5;
@@ -23,6 +22,8 @@ public class HookThrow : MonoBehaviour
     private bool isHooked = false;
     private bool isRotating = false;
     private bool hasthrow = false;
+    
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -32,7 +33,8 @@ public class HookThrow : MonoBehaviour
         mouseWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         if (Input.GetMouseButtonDown(0))
-        {     
+        { 
+            rb.constraints = RigidbodyConstraints2D.FreezePosition;
             StartCoroutine(CastRay());
         }
 
@@ -61,26 +63,20 @@ public class HookThrow : MonoBehaviour
             isRotating = true;
             GetComponent<PlayerMovement>().ChangeSpeed(throwingSpeed);
         }
+       
     }
 
     IEnumerator CastRay()
     {
-        direction = mouseWorldPos - (Vector2)transform.position; // Calculate direction
+        Vector2 direction = mouseWorldPos - (Vector2)transform.position; // Calculate direction
         RaycastHit2D hit = Physics2D.Raycast(transform.position, direction.normalized, hookDistance);
         Debug.DrawRay(transform.position, direction.normalized * hookDistance, Color.red, 1f);
-
-
-       
 
         // If it hits something...
         if (hit.collider != null && hit.collider.gameObject.CompareTag("Enemy"))
         {
+            isHooked = true;
             enemyHooked = hit.collider.gameObject;
-            if(Vector2.Distance(transform.position, enemyHooked.transform.position) > 2.5f)
-            {
-                isHooked = true;
-                rb.constraints = RigidbodyConstraints2D.FreezePosition;
-            }
             yield return new WaitForSeconds(grabingSpeed);
         }
      
@@ -131,11 +127,5 @@ public class HookThrow : MonoBehaviour
             rotationSpeed += 0.005f;
         }
         else timer = 2f;
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.white;
-        Gizmos.DrawRay(transform.position, direction.normalized * hookDistance);
     }
 }

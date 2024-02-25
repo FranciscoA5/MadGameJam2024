@@ -7,7 +7,7 @@ public class AreaController : MonoBehaviour
 {
     [SerializeField] private Camera cam;
     [SerializeField] private Transform[] points; //<<<------ Objects with colliders
-    //[SerializeField] private LineController[] line;
+    [SerializeField] private LineController[] line;
     [SerializeField] private LineRenderer[] lines;
     [SerializeField] private Texture[] tex;
     bool hasEnter1, hasEnter2, hasEnter3, hasEnter4;
@@ -27,16 +27,13 @@ public class AreaController : MonoBehaviour
     [SerializeField] bool Wall2, Wall3, Wall4;
     [Space]
     [Header("Frozen Walls")]
-    public bool frozenWall1;
-    public bool frozenWall2, frozenWall3, frozenWall4;
+    [SerializeField] bool frozenWall1;
+    [SerializeField] bool frozenWall2, frozenWall3, frozenWall4;
     [Space]
     [Header("Texture Walls")]
     public bool texWall1;
     public bool texWall2, texWall3, texWall4;
-    [Space]
-    [Header("Deactivate Texture Walls")]
-    public bool isDeactive1;
-    public bool isDeactive2, isDeactive3, isDeactive4;
+    public bool Deactive;
     [Space]
     [Header("Shrink All wall at same time!")]
     [SerializeField] bool allActive;
@@ -49,13 +46,13 @@ public class AreaController : MonoBehaviour
     float offset = 0.25f;
     public int delaySpike = 1;
 
-    //void Start()
-    //{
-    //    for (int i = 0; i < line.Length; i++)
-    //    {
-    //        line[i].SetUpLine(points);
-    //    }
-    //}
+    void Start()
+    {
+        for (int i = 0; i < line.Length; i++)
+        {
+            line[i].SetUpLine(points);
+        }
+    }
 
     private void Update()
     {
@@ -249,7 +246,7 @@ public class AreaController : MonoBehaviour
         float lenghtY = Vector2.Distance(points[0].position, points[1].position);
         float lenghtX = Vector2.Distance(points[0].position, points[3].position);
 
-        float width = lines[0].GetComponent<LineRenderer>().startWidth;
+        float width = line[0].GetComponent<LineRenderer>().startWidth;
         //wall1
 
         points[0].GetComponent<BoxCollider2D>().offset = new Vector2(0, -centerY);
