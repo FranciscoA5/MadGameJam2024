@@ -7,7 +7,13 @@ using UnityEngine.UI;
 public class MainMenuController : MonoBehaviour
 {
     [SerializeField] private AudioSource audioSource;
+    [SerializeField] private Slider slider;
     [SerializeField] private GameObject mainMenu , optionMenu;
+
+    private void Awake()
+    {
+        slider.value = 1;
+    }
 
     public void SetGameScene()
     {
