@@ -9,6 +9,7 @@ TagManager:
   - Wall2
   - Wall3
   - Wall4
+  - Coin
   layers:
   - Default
   - TransparentFX

@@ -14,7 +14,7 @@ public class CaveBehaviour : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(enemyCount < 10)
+        if(enemyCount < 15)
         {
             SpawnEnemies();
            
@@ -27,6 +27,7 @@ public class CaveBehaviour : MonoBehaviour
         int randomIndex = Random.Range(0, enemyList.Count);
        
         Instantiate(enemyList[randomIndex], transform.position, Quaternion.identity);
+      
         enemyCount++;
 
 

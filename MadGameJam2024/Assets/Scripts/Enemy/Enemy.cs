@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Enemy : MonoBehaviour
 {
-    private enum State
+    public enum State
     {
         Wonder,
         Attack,
@@ -23,7 +23,7 @@ public abstract class Enemy : MonoBehaviour
 
     Vector2 direction;
 
-    private State currState = State.Wonder;
+    public State currState = State.Wonder;
 
     protected abstract void Wonder();
 

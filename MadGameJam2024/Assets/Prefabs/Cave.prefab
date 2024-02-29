@@ -99,3 +99,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyList:
   - {fileID: 4635150713061600756, guid: 64f4d635160cac641a33dd5bbaab9e49, type: 3}
+  - {fileID: 2605458883800581169, guid: 92ee7be3acd715c4685fde3c2fc069e5, type: 3}
+  - {fileID: 2249182747255752277, guid: a98cbd00962b4b84bb1e9921678fc274, type: 3}

@@ -398,11 +398,11 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 534aa6c4eff7fcd41a33ef2de13dfef7, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f046d88a25e12024cac66e7fd452a54e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -500,6 +500,18 @@ MonoBehaviour:
   slider: {fileID: 1921605358}
   mainMenu: {fileID: 1897071624}
   optionMenu: {fileID: 813414505}
+  anim:
+  - {fileID: 731017002}
+  - {fileID: 706037555}
+  - {fileID: 270136030}
+  - {fileID: 5568491036861928088}
+  bigBoy: {fileID: 5568491036861928096}
+  smallBoy:
+  - {fileID: 1605680272, guid: 214c16256145f984fb3b1611b05818ce, type: 3}
+  - {fileID: 1831658162, guid: b85d502367374874c852c7f50e970df0, type: 3}
+  - {fileID: 1373167633, guid: b85d502367374874c852c7f50e970df0, type: 3}
+  - {fileID: 742213809, guid: b85d502367374874c852c7f50e970df0, type: 3}
+  - {fileID: -334513998, guid: b85d502367374874c852c7f50e970df0, type: 3}
 --- !u!4 &490614794
 Transform:
   m_ObjectHideFlags: 0
@@ -971,11 +983,11 @@ MonoBehaviour:
       - m_Target: {fileID: 490614793}
         m_TargetAssemblyTypeName: MainMenuController, Assembly-CSharp
         m_MethodName: SetGameScene
-        m_Mode: 1
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1330,7 +1342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1897071625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1682,11 +1694,11 @@ PrefabInstance:
       objectReference: {fileID: 1897071624}
     - target: {fileID: 688071363705164088, guid: 5a4684de70142c347b7f96e0e11d7ebf, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3266753258556428856, guid: 5a4684de70142c347b7f96e0e11d7ebf, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3994409501166652567, guid: 5a4684de70142c347b7f96e0e11d7ebf, type: 3}
       propertyPath: m_Pivot.x
@@ -1776,11 +1788,114 @@ PrefabInstance:
       propertyPath: m_Name
       value: Option Menu
       objectReference: {fileID: 0}
+    - target: {fileID: 7304056779490867396, guid: 5a4684de70142c347b7f96e0e11d7ebf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 466726310462138734, guid: 5a4684de70142c347b7f96e0e11d7ebf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5568491036861928090}
+    - targetCorrespondingSourceObject: {fileID: 466726310462138734, guid: 5a4684de70142c347b7f96e0e11d7ebf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5568491036861928098}
   m_SourcePrefab: {fileID: 100100000, guid: 5a4684de70142c347b7f96e0e11d7ebf, type: 3}
+--- !u!95 &5568491036861928088 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7633491843121470666, guid: 5a4684de70142c347b7f96e0e11d7ebf, type: 3}
+  m_PrefabInstance: {fileID: 5568491036861928087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5568491036861928089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 466726310462138734, guid: 5a4684de70142c347b7f96e0e11d7ebf, type: 3}
+  m_PrefabInstance: {fileID: 5568491036861928087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5568491036861928090
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5568491036861928089}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e29bf41e2818b6e4d8a76a05bd325084, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5568491036861928096 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2147336168257629965, guid: 5a4684de70142c347b7f96e0e11d7ebf, type: 3}
+  m_PrefabInstance: {fileID: 5568491036861928087}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5568491036861928089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!331 &5568491036861928098
+SpriteMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5568491036861928089}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 15d0c3709176029428a0da2f8cecf0b5, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 1831658162, guid: b85d502367374874c852c7f50e970df0, type: 3}
+  m_MaskAlphaCutoff: 0.2
+  m_FrontSortingLayerID: 0
+  m_BackSortingLayerID: 0
+  m_FrontSortingLayer: 0
+  m_BackSortingLayer: 0
+  m_FrontSortingOrder: 0
+  m_BackSortingOrder: 0
+  m_IsCustomRangeActive: 0
+  m_SpriteSortPoint: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

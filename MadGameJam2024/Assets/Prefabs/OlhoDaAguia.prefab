@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7091722307680020725}
   m_Layer: 0
   m_Name: Visual
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -117,9 +117,10 @@ GameObject:
   - component: {fileID: 6804031727260317024}
   - component: {fileID: 1765720592139597544}
   - component: {fileID: 4859460903781242185}
+  - component: {fileID: 8512881724545327379}
   m_Layer: 0
   m_Name: OlhoDaAguia
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -180,9 +181,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 8
-  speed: 150
+  speed: 25
   Rotspeed: 0
+  id: 0
   projetilPrefab: {fileID: 2459984984639496765, guid: 62ea3205d5618fd409395dec46c2ee08, type: 3}
   animator: {fileID: 7091722307680020725}
   shootingRange: 5
   shootInterval: 1.5
+--- !u!61 &8512881724545327379
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2605458883800581169}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0

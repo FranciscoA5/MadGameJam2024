@@ -46,4 +46,15 @@ public class RegSteve : Enemy
         Vector3 pos = transform.position + randomDirection * Random.Range(0f, range);
         return pos;
     }
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (currState == State.Rotating || currState == State.Thrown)
+    //    {
+    //        if (collision.gameObject.tag == "Enemy")
+    //        {
+    //            Destroy(collision.gameObject);
+    //        }
+    //    }
+    //}
 }

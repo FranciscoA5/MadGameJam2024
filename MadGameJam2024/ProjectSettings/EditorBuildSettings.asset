@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Francisco.unity
     guid: b8e5ec876db13eb49919aed71869688e
+  - enabled: 1
+    path: Assets/Scenes/Menu 1.unity
+    guid: dde9d4b81b491eb43ae2c4ef4bbf8407
   m_configObjects: {}
